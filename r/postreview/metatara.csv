@@ -1,0 +1,203 @@
+sample,type,coverage,primer
+k1_3,Beetle (in-vitro),1000,ref
+k1_1,Beetle (in-vitro),1000,ref
+k1_2,Beetle (in-vitro),1000,ref
+k1_5,Beetle (in-vitro),1000,ref
+k10_1,Beetle (in-vitro),1000,ref
+k10_2,Beetle (in-vitro),1000,ref
+k10_3,Beetle (in-vitro),1000,ref
+k10_4,Beetle (in-vitro),1000,ref
+k10_5,Beetle (in-vitro),1000,ref
+k11_1,Beetle (in-vitro),1000,ref
+k11_2,Beetle (in-vitro),1000,ref
+k11_3,Beetle (in-vitro),1000,ref
+k11_4,Beetle (in-vitro),1000,ref
+k11_5,Beetle (in-vitro),1000,ref
+k12_1,Beetle (in-vitro),1000,ref
+k12_2,Beetle (in-vitro),1000,ref
+k12_3,Beetle (in-vitro),1000,ref
+k12_4,Beetle (in-vitro),1000,ref
+k12_5,Beetle (in-vitro),1000,ref
+k13_1,Beetle (in-vitro),1000,ref
+k13_2,Beetle (in-vitro),1000,ref
+k13_3,Beetle (in-vitro),1000,ref
+k13_4,Beetle (in-vitro),1000,ref
+k13_5,Beetle (in-vitro),1000,ref
+k14_1,Beetle (in-vitro),1000,ref
+k14_2,Beetle (in-vitro),1000,ref
+k14_3,Beetle (in-vitro),1000,ref
+k14_4,Beetle (in-vitro),1000,ref
+k15_1,Beetle (in-vitro),1000,ref
+k15_2,Beetle (in-vitro),1000,ref
+k15_3,Beetle (in-vitro),1000,ref
+k15_4,Beetle (in-vitro),1000,ref
+k15_5,Beetle (in-vitro),1000,ref
+k16_1,Beetle (in-vitro),1000,ref
+k16_2,Beetle (in-vitro),1000,ref
+k16_3,Beetle (in-vitro),1000,ref
+k16_4,Beetle (in-vitro),1000,ref
+k16_5,Beetle (in-vitro),1000,ref
+k17_1,Beetle (in-vitro),1000,ref
+k17_2,Beetle (in-vitro),1000,ref
+k17_3,Beetle (in-vitro),1000,ref
+k17_4,Beetle (in-vitro),1000,ref
+k17_5,Beetle (in-vitro),1000,ref
+k18_1,Beetle (in-vitro),1000,ref
+k18_2,Beetle (in-vitro),1000,ref
+k18_3,Beetle (in-vitro),1000,ref
+k18_4,Beetle (in-vitro),1000,ref
+k18_5,Beetle (in-vitro),1000,ref
+k19_1,Beetle (in-vitro),1000,ref
+k19_2,Beetle (in-vitro),1000,ref
+k19_3,Beetle (in-vitro),1000,ref
+k19_4,Beetle (in-vitro),1000,ref
+k19_5,Beetle (in-vitro),1000,ref
+k2_1,Beetle (in-vitro),1000,ref
+k2_2,Beetle (in-vitro),1000,ref
+k2_4,Beetle (in-vitro),1000,ref
+k2_5,Beetle (in-vitro),1000,ref
+k20_1,Beetle (in-vitro),1000,ref
+k20_2,Beetle (in-vitro),1000,ref
+k20_3,Beetle (in-vitro),1000,ref
+k20_4,Beetle (in-vitro),1000,ref
+k20_5,Beetle (in-vitro),1000,ref
+k3_1,Beetle (in-vitro),1000,ref
+k3_3,Beetle (in-vitro),1000,ref
+k3_5,Beetle (in-vitro),1000,ref
+k4_1,Beetle (in-vitro),1000,ref
+k4_2,Beetle (in-vitro),1000,ref
+k4_3,Beetle (in-vitro),1000,ref
+k4_4,Beetle (in-vitro),1000,ref
+k4_5,Beetle (in-vitro),1000,ref
+k5_1,Beetle (in-vitro),1000,ref
+k5_2,Beetle (in-vitro),1000,ref
+k5_3,Beetle (in-vitro),1000,ref
+k5_4,Beetle (in-vitro),1000,ref
+k5_5,Beetle (in-vitro),1000,ref
+k6_1,Beetle (in-vitro),1000,ref
+k6_2,Beetle (in-vitro),1000,ref
+k6_3,Beetle (in-vitro),1000,ref
+k6_4,Beetle (in-vitro),1000,ref
+k6_5,Beetle (in-vitro),1000,ref
+k7_1,Beetle (in-vitro),1000,ref
+k7_2,Beetle (in-vitro),1000,ref
+k7_3,Beetle (in-vitro),1000,ref
+k7_4,Beetle (in-vitro),1000,ref
+k7_5,Beetle (in-vitro),1000,ref
+k8_1,Beetle (in-vitro),1000,ref
+k8_2,Beetle (in-vitro),1000,ref
+k8_3,Beetle (in-vitro),1000,ref
+k8_4,Beetle (in-vitro),1000,ref
+k8_5,Beetle (in-vitro),1000,ref
+k9_1,Beetle (in-vitro),1000,ref
+k9_2,Beetle (in-vitro),1000,ref
+k9_3,Beetle (in-vitro),1000,ref
+k9_4,Beetle (in-vitro),1000,ref
+k9_5,Beetle (in-vitro),1000,ref
+P10,Environmental (field 2025),40000,ref
+P12,Environmental (field 2025),40000,ref
+P13,Environmental (field 2025),40000,ref
+P14,Environmental (field 2025),40000,ref
+P18,Environmental (field 2025),40000,ref
+P20,Environmental (field 2025),40000,ref
+P22,Environmental (field 2025),40000,ref
+P25,Environmental (field 2025),40000,ref
+P28,Environmental (field 2025),40000,ref
+P32,Environmental (field 2025),40000,ref
+P34,Environmental (field 2025),40000,ref
+P37,Environmental (field 2025),40000,ref
+P39,Environmental (field 2025),40000,ref
+P40,Environmental (field 2025),40000,ref
+P46,Environmental (field 2025),40000,ref
+P47,Environmental (field 2025),40000,ref
+P51,Environmental (field 2025),40000,ref
+P54,Environmental (field 2025),40000,ref
+P55,Environmental (field 2025),40000,ref
+P56,Environmental (field 2025),40000,ref
+P58,Environmental (field 2025),40000,ref
+P59,Environmental (field 2025),40000,ref
+P8,Environmental (field 2025),40000,ref
+U26,Environmental (field 2025),40000,ref
+E10,Beetle (field 2025),1000,ref
+E12,Beetle (field 2025),1000,ref
+E13,Beetle (field 2025),1000,ref
+E14,Beetle (field 2025),1000,ref
+E15,Beetle (field 2025),1000,ref
+E17,Beetle (field 2025),1000,ref
+E18,Beetle (field 2025),1000,ref
+E19,Beetle (field 2025),1000,ref
+E20,Beetle (field 2025),1000,ref
+E21,Beetle (field 2025),1000,ref
+E22,Beetle (field 2025),1000,ref
+E23,Beetle (field 2025),1000,ref
+E24,Beetle (field 2025),1000,ref
+E25,Beetle (field 2025),1000,ref
+E26,Beetle (field 2025),1000,ref
+E27,Beetle (field 2025),1000,ref
+E29,Beetle (field 2025),1000,ref
+E2,Beetle (field 2025),1000,ref
+E30,Beetle (field 2025),1000,ref
+E31,Beetle (field 2025),1000,ref
+E32,Beetle (field 2025),1000,ref
+E33,Beetle (field 2025),1000,ref
+E34,Beetle (field 2025),1000,ref
+E35,Beetle (field 2025),1000,ref
+E36,Beetle (field 2025),1000,ref
+E37,Beetle (field 2025),1000,ref
+E39,Beetle (field 2025),1000,ref
+E3,Beetle (field 2025),1000,ref
+E41,Beetle (field 2025),1000,ref
+E42,Beetle (field 2025),1000,ref
+E43,Beetle (field 2025),1000,ref
+E44,Beetle (field 2025),1000,ref
+E45,Beetle (field 2025),1000,ref
+E46,Beetle (field 2025),1000,ref
+E47,Beetle (field 2025),1000,ref
+E48,Beetle (field 2025),1000,ref
+E51,Beetle (field 2025),1000,ref
+E53,Beetle (field 2025),1000,ref
+E54,Beetle (field 2025),1000,ref
+E56,Beetle (field 2025),1000,ref
+E57,Beetle (field 2025),1000,ref
+E58,Beetle (field 2025),1000,ref
+E59,Beetle (field 2025),1000,ref
+E5,Beetle (field 2025),1000,ref
+E60,Beetle (field 2025),1000,ref
+E6,Beetle (field 2025),1000,ref
+E7,Beetle (field 2025),1000,ref
+E8,Beetle (field 2025),1000,ref
+E9,Beetle (field 2025),1000,ref
+LOE,Beetle (field 2025),1000,ref
+POM,Beetle (field 2025),1000,ref
+l10,Environmental (in vitro),40000,skdrf
+l11,Environmental (in vitro),40000,skdrf
+l12,Environmental (in vitro),40000,skdrf
+l13,Environmental (in vitro),40000,skdrf
+l14,Environmental (in vitro),40000,skdrf
+l15,Environmental (in vitro),40000,skdrf
+l16,Environmental (in vitro),40000,skdrf
+l17,Environmental (in vitro),40000,skdrf
+l18,Environmental (in vitro),40000,skdrf
+l19,Environmental (in vitro),40000,skdrf
+l1,Environmental (in vitro),40000,skdrf
+l2,Environmental (in vitro),40000,skdrf
+l4,Environmental (in vitro),40000,skdrf
+l6,Environmental (in vitro),40000,skdrf
+l7,Environmental (in vitro),40000,skdrf
+K1S12,Environmental (field 2024),40000,ref
+K1S6,Environmental (field 2024),40000,ref
+K1S7,Environmental (field 2024),40000,ref
+K1S8,Environmental (field 2024),40000,ref
+K1S9,Environmental (field 2024),40000,ref
+K2S11,Environmental (field 2024),40000,ref
+K2S3,Environmental (field 2024),40000,ref
+K2S6,Environmental (field 2024),40000,ref
+K2S8,Environmental (field 2024),40000,ref
+O1S10,Environmental (field 2024),40000,ref
+O1S11,Environmental (field 2024),40000,ref
+O1S2,Environmental (field 2024),40000,ref
+O1S6,Environmental (field 2024),40000,ref
+O2S1,Environmental (field 2024),40000,ref
+O2S2,Environmental (field 2024),40000,ref
+R2S1,Environmental (field 2024),40000,ref
+R2S12,Environmental (field 2024),40000,ref

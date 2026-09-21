@@ -1,0 +1,175 @@
+---
+title: "scripts_plots_review"
+author: "Mattia De Vivo"
+date: "2026-09-21"
+output: html_document
+---
+
+###plots made after peer review
+
+##Libraries
+
+library(tidyverse)
+library(scales)
+library(vegan)
+library(patchwork)
+
+###loading the files
+
+library(readxl)
+megatable_rar_nometa <- read_excel("megatable_rar_nometa.xlsx")
+
+metatara <- read_excel("metatara.xlsx")
+
+###rarefaction
+
+rartest<-megatable_rar_nometa  %>%
+column_to_rownames(., var = "sample") %>%
+rarecurve(step = 200)
+
+testingrar_binding<-map_dfr(rartest, bind_rows) %>%
+bind_cols(sample = megatable_rar_nometa  [,1],.) %>%
+pivot_longer(-"sample") %>%
+drop_na() %>%
+mutate(n_seqs = as.numeric(str_replace(name, "N", ""))) %>%
+select(-name) %>%
+left_join(.,metatara, by = "sample") %>%
+mutate(type=case_when(
+str_detect(type, "Beetle") ~ "Beetle",
+type == "Environmental (field 2024)" ~ "Environmental (field)",
+type == "Environmental (field 2025)" ~ "Environmental (field)",
+type == "Environmental (in vitro)" ~ "Environmental (in vitro)"
+))
+
+###plot
+
+testingrar_binding %>%
+ggplot() +
+geom_vline(aes(xintercept = 1000),
+color = "darkblue",
+linetype = "longdash") +
+geom_vline(aes(xintercept = 20000),
+color = "darkblue",
+linetype = "longdash") +
+geom_line(aes(x = n_seqs, y = value, group = sample, colour = type)) +
+labs(x = "# of reads (logscaled)",
+y = "# of haplotypes",
+color = "Samples") +
+scale_x_log10() +
+theme_bw()
+
+###abundances' plots
+
+###use files uploaded previously; so, reminder
+
+##table_2024<-read_delim("table_2024.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+##meta_2024<-read_delim("meta_2024.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+##table_2025<-read_delim("table_2025.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+##meta_2025<-read_delim("meta_2025.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+##table_invitro<-read_delim("table_invitro.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+##meta_invitro<-read_delim("meta_invitro.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+test2024<-table_2024 %>%
+pivot_longer(cols = -sample, names_to = "query", values_to = "reads") %>%
+left_join(meta_2024,by="sample") %>%
+group_by(sample,query,field) %>%
+summarise(readsum = sum(reads)) %>%
+group_by(sample,field) %>%
+mutate(relative_abundance = readsum / sum(readsum)) %>%
+ungroup()
+
+test2025<-table_2025 %>%
+pivot_longer(cols = -sample, names_to = "query", values_to = "reads") %>%
+left_join(meta_2025,by="sample") %>%
+group_by(sample,query,type) %>%
+summarise(readsum = sum(reads)) %>%
+group_by(sample,type) %>%
+mutate(relative_abundance = readsum / sum(readsum)) %>%
+ungroup()
+
+###boxplots
+
+testm918l2024<-test2024 %>% filter(query=="M918L") %>% ggplot(mapping=aes(x=field,y=relative_abundance)) + geom_boxplot() + theme_bw() + labs(y = "Relative abundance in samples from 2024", x = "Field")
+
+
+testwildtype2024<-test2024 %>% filter(query=="reg") %>% ggplot(mapping=aes(x=field,y=relative_abundance)) + geom_boxplot() + theme_bw() + labs(y = "Relative abundance of Wildtype per sample", x = "Field sampled in 2024")
+
+testm918l2025<-test2025 %>% filter(query=="M918L") %>% ggplot(mapping=aes(x=type,y=relative_abundance)) + geom_boxplot() + theme_bw() + labs(y = "Relative abundance of M918L per sample", x = "Type of sample (Oberkorn 2025)")
+
+testWildtype2025 <- test2025 %>% filter(query=="Wildtype") %>% ggplot(mapping=aes(x=type,y=relative_abundance)) + geom_boxplot() + theme_bw() + labs(y = "Relative abundance of Wildtype per sample", x = "Type of sample (Oberkorn 2025)")
+
+(testWildtype2025 + testwildtype2024)/(testm918l2025 + testm918l2024) + plot_annotation(tag_levels = 'A') & theme(plot.tag = element_text(face = 'bold'))
+
+###barplot beetles
+
+##filter beetles
+
+beetle2025_data<-table_2025 %>%
+left_join(meta_2025, by="sample") %>%
+filter(type=="Beetle")
+
+beetleinvitro_data<-table_invitro %>%
+left_join(meta_invitro, by="sample") %>%
+filter(type=="Beetle")
+
+
+###in case there are issues
+
+beetleinvitro_data %>%
+mutate(value = replace(value, value == 5, 0.5))
+beetleinvitro_data %>%
+mutate(M918L = replace(M918L, M918L == 5, 0.5))
+
+beetle2025_data<-beetle2025_data %>%
+mutate(M918L = replace(M918L, M918L == 5, 0.5)) %>%
+mutate(Wildtype = replace(Wildtype, Wildtype == 5, 0.5))
+
+###processing
+
+homozygous_beetleinvitro <- beetleinvitro_data %>%
+mutate(genotype = case_when(
+M918L > Wildtype & M918L > L925I ~ "Homozygote M918L",
+L925I > Wildtype & L925I > M918L ~ "Homozygote L925I",
+M918L < Wildtype & L925I < Wildtype ~ "Homozygote Wildtype",
+M918L == Wildtype ~ "Heterozygote M918L/Wildtype",
+L925I == Wildtype ~ "Heterozygote L925I/Wildtype",
+L925I == M918L ~ "Heterozygote L925I/M918L"
+)) %>%
+count(genotype)
+
+perc_beetlesinvitro <- homozygous_beetleinvitro %>%
+mutate(percentage = n / sum(n) * 100)
+
+homozygous_beetle2025 <- beetle2025_data %>%
+mutate(genotype = case_when(
+M918L > Wildtype ~ "Homozygote M918L",
+M918L < Wildtype ~ "Homozygote Wildtype",
+M918L == Wildtype ~ "Heterozygote"
+)) %>%
+count(genotype)
+
+perc_beetles2025 <- homozygous_beetle2025 %>%
+mutate(percentage = n / sum(n) * 100)
+
+## Creating bar plots
+
+ggplot(perc_beetles2025, aes(x = genotype, y = percentage)) +
+geom_col(fill = "steelblue") +
+scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+labs(x = "Genotype", y = "Percentage (%)", title = "Genotype Distribution in beetles in Oberkorn (2025)") +
+theme_minimal()
+
+
+ggplot(perc_beetlesinvitro, aes(x = genotype, y = percentage)) +
+geom_col(fill = "steelblue") +
+scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+labs(x = "Genotype", y = "Percentage (%)", title = "Genotype Distribution in beetles in the in-vitro experiment") +
+theme_minimal() +
+theme(axis.text= element_text(size = 16),
+axis.title = element_text(size = 20))
+
