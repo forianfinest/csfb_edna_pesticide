@@ -1,0 +1,6 @@
+metabarcoding.yml
+File for creating the used Conda environment. Open it with Conda.
+
+reads_processing.sh
+Used scripts for generating zOTU tables. The file can be opened with tools for editing codes (e.g., Visual Studio Code or Notepad).
+
