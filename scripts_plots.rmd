@@ -1,0 +1,162 @@
+---
+title: "scripts_pesticide"
+date: "2026-04-24"
+output: html_document
+---
+
+
+##Libraries
+
+library(tidyverse)
+library(patchwork)
+library(ggpubr)
+library(ggpmisc)
+
+###plot of relative abundance of mutations in the 2024 samples
+
+
+table_2024<-read_delim("table_2024.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+meta_2024<-read_delim("meta_2024.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+
+rel_abund_2024 <- table_2024 %>%
+pivot_longer(cols = -sample, names_to = "query", values_to = "reads") %>%
+left_join(meta_2024,by="sample") %>%
+group_by(query,field) %>%
+summarise(readsum = sum(reads)) %>%
+group_by(field) %>%
+mutate(relative_abundance = readsum / sum(readsum)) %>%
+ungroup()
+
+plot_2024 <- rel_abund_2024 %>%
+ggplot(aes(x = field, y = relative_abundance, fill = query)) +
+geom_col(position = "stack") +
+scale_y_continuous(labels = scales::percent) +
+labs(title="Samples from 2024", x = "Field", y = "Relative Abundance (%)") +
+theme_bw() +
+scale_fill_manual("Mutation", values = c("#D81B60", "#1E88E5"), labels = c("M918L", "Wildtype")) +
+theme(
+legend.text = element_text(size = 16),
+legend.title = element_text(size = 20)
+)+
+theme(axis.text= element_text(size = 16),
+axis.title = element_text(size = 20))
+
+###plot of relative abundance of mutations in the 2025 Oberkorn samples
+
+table_2025<-read_delim("table_2025.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+meta_2025<-read_delim("meta_2025.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+
+rel_abund_2025 <- table_2025 %>%
+pivot_longer(cols = -sample, names_to = "query", values_to = "reads") %>%
+left_join(meta_2025,by="sample") %>%
+group_by(query,type) %>%
+summarise(readsum = sum(reads)) %>%
+group_by(type) %>%
+mutate(relative_abundance = readsum / sum(readsum)) %>%
+ungroup()
+
+plot_infield <- rel_abund_2025 %>%
+ggplot(aes(x = type, y = relative_abundance, fill = query)) +
+geom_col(position = "stack") +
+scale_y_continuous(labels = scales::percent) +
+labs(title="In-field experiment February 2025 in Oberkorn", x = "Type", y = "Relative Abundance (%)") +
+theme_bw() +
+scale_fill_manual("Mutation", values = c("#D81B60", "#1E88E5"), labels = c("M918L", "Wildtype")) +
+theme(
+legend.text = element_text(size = 16),
+legend.title = element_text(size = 20)
+)+
+theme(axis.text= element_text(size = 16),
+axis.title = element_text(size = 20))
+
+##combine the two plots
+
+(plot_2024+plot_infield) + plot_annotation(tag_levels = c('A')) + plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+
+##for the in-vitro experiment
+
+table_invitro<-read_delim("table_invitro.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+meta_invitro<-read_delim("meta_invitro.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
+##plot per type (leaf or beetle)##
+
+rel_abund_type <- table_invitro %>%
+pivot_longer(cols = -sample, names_to = "query", values_to = "reads") %>%
+left_join(meta_invitro,by="sample") %>%
+group_by(query, type) %>%
+summarise(readsum = sum(reads)) %>%
+group_by(type) %>%
+mutate(relative_abundance = readsum / sum(readsum)) %>%
+ungroup()
+
+plot_type <- rel_abund_type %>%
+ggplot(aes(x = type, y = relative_abundance, fill = query)) +
+geom_col(position = "stack") +
+scale_y_continuous(labels = scales::percent) +
+labs(title="In-vitro experiment", x = "Type", y = "Relative Abundance (%)") +
+theme_bw() +
+scale_fill_manual("Mutation", values = c("#004D40","#D81B60", "#1E88E5")) +
+theme(
+legend.text = element_text(size = 16),
+legend.title = element_text(size = 20)
+) +
+theme(axis.text= element_text(size = 16),
+axis.title = element_text(size = 20))
+
+###plot per group (leaf number)###
+
+rel_abund_group <- table_invitro %>%
+pivot_longer(cols = -sample, names_to = "query", values_to = "reads") %>%
+left_join(meta_invitro,by="sample") %>%
+filter(group!="3", group!="5",group!="8", group!="9",group!="20") %>% ###EXCLUDE GROUPS THAT HAVE MISSING BEETLES OR LEAVES %>%
+mutate(group=as.factor(group)) %>% ###MAKE R UNDERSTAND IT IS A GROUP
+group_by(query, type, group) %>%
+summarise(readsum = sum(reads)) %>%
+group_by(type, group) %>%
+mutate(relative_abundance = readsum / sum(readsum)) %>%
+ungroup()
+
+
+plot_group<-rel_abund_group %>%
+ggplot(aes(x = group, y = relative_abundance, fill = query)) +
+geom_col(position = "stack") +
+scale_y_continuous(labels = scales::percent) +
+facet_grid(~type)+ ###FOR MAKING THE GRID
+labs(title="In-vitro experiment", x = "Leaf number", y = "Relative Abundance (%)") +
+theme_bw() +
+scale_fill_manual("Mutation", values = c("#004D40","#D81B60", "#1E88E5")) +
+theme(
+legend.text = element_text(size = 16),
+legend.title = element_text(size = 20)
+)+
+theme(axis.text= element_text(size = 16),
+axis.title = element_text(size = 20)) +
+theme(strip.text = element_text(size = 20))
+
+###put them together
+
+(plot_type / plot_group) + plot_annotation(tag_levels = c('A')) + plot_layout(guides = "collect") & theme(legend.position = 'bottom')
+
+###linear regression for abundances in the in-vitro experiment
+
+df_wide <- rel_abund_group %>%
+select(query, type, group, relative_abundance) %>%
+pivot_wider(names_from = type, values_from = relative_abundance) %>%
+rename(abund_beetle = Beetle, abund_leaf = Leaf)
+
+abund_plot<-ggplot(df_wide, aes(x = abund_beetle, y = abund_leaf)) +
+geom_point(size = 4) +
+geom_smooth(method = "lm", se = T) +
+xlim(0, 1) + ylim(0, 1) +
+labs(title="In-vitro experiment: relative abundances check",  x = "Relative abundance (beetles)", y = "Relative abundace (leaves)") +
+stat_poly_eq(use_label(c( "R2", "p")), label.x = 1, label.y = 0,size = 8) +
+theme_bw() +
+theme(
+axis.text.x = element_text(size = 22),
+axis.text.y = element_text(size = 22),
+axis.title = element_text(size = 27))
